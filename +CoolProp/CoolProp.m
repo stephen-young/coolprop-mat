@@ -11,13 +11,14 @@ classdef CoolProp
         function load()
 
             if libisloaded(CoolProp.CoolProp.ALIAS)
-                disp('CoolProp is already loaded')
                 return
             end
 
             path_to_lib = CoolProp.CoolProp.getLibPath();
             path_to_header = CoolProp.CoolProp.getHeaderPath();
-            loadlibrary(path_to_lib, path_to_header, 'alias', CoolProp.CoolProp.ALIAS);
+            loadlibrary(path_to_lib, path_to_header, ...
+                'alias', CoolProp.CoolProp.ALIAS);
+
         end
 
         function configRefprop()
@@ -35,7 +36,6 @@ classdef CoolProp
         function unload()
 
             if ~libisloaded(CoolProp.CoolProp.ALIAS)
-                disp('CoolProp is not loaded')
                 return
             end
 
