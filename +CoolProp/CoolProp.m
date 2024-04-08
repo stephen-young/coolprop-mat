@@ -99,6 +99,14 @@ classdef CoolProp
 
         end
 
+        function outval = PropsSI(output, name_one, value_one, name_two,...
+            value_two, fluid)
+
+            outval = calllib(CoolProp.CoolProp.ALIAS, 'PropsSI', output,...
+                name_one, value_one, name_two, value_two, fluid);
+
+        end
+
     end
 
     methods (Static, Access = private)
