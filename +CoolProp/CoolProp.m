@@ -18,6 +18,17 @@ classdef CoolProp
             path_to_lib = CoolProp.CoolProp.getLibPath();
             path_to_header = CoolProp.CoolProp.getHeaderPath();
             loadlibrary(path_to_lib, path_to_header, 'alias', CoolProp.CoolProp.ALIAS);
+        end
+
+        function configRefprop()
+
+            calllib(CoolProp.CoolProp.ALIAS, 'set_config_string', ...
+                'ALTERNATIVE_REFPROP_PATH', ...
+                CoolProp.CoolProp.getRefpropPath());
+
+            calllib(CoolProp.CoolProp.ALIAS, 'set_config_string', ...
+                'ALTERNATIVE_REFPROP_LIBRARY_PATH', ...
+                CoolProp.CoolProp.getRefpropLibPath());
 
         end
 
@@ -48,6 +59,22 @@ classdef CoolProp
             path = CoolProp.CoolProp.headerPath();
         end
 
+        function setRefpropPath(path)
+            CoolProp.CoolProp.refpropPath(path);
+        end
+
+        function path = getRefpropPath()
+            path = CoolProp.CoolProp.refpropPath();
+        end
+
+        function setRefpropLibPath(path)
+            CoolProp.CoolProp.refpropLibPath(path);
+        end
+
+        function path = getRefpropLibPath()
+            path = CoolProp.CoolProp.refpropLibPath();
+        end
+
         function path = defaultLibLocation()
 
             if ispc
@@ -75,6 +102,40 @@ classdef CoolProp
     end
 
     methods (Static, Access = private)
+
+        function path = refpropPath(path)
+
+            persistent refprop_path;
+
+            if isempty(refprop_path)
+                refprop_path = '';
+            end
+
+            if nargin
+                refprop_path = path;
+                return
+            end
+
+            path = refprop_path;
+
+        end
+
+        function path = refpropLibPath(path)
+
+            persistent refproplib_path;
+
+            if isempty(refproplib_path)
+                refproplib_path = '';
+            end
+
+            if nargin
+                refproplib_path = path;
+                return
+            end
+
+            path = refproplib_path;
+
+        end
 
         function path = headerPath(path)
 
