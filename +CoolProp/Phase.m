@@ -16,4 +16,35 @@ classdef Phase
 
     end
 
+    methods (Static)
+
+        function str = index_to_string(idx)
+            % Phase indicator string from `phase_info_list` at:
+            % https://github.com/CoolProp/CoolProp/blob/master/src/DataStructures.cpp#L361
+            switch idx
+                case 0
+                    str = 'phase_liquid';
+                case 1
+                    str = 'phase_supercritical';
+                case 2
+                    str = 'phase_supercritical_gas';
+                case 3
+                    str = 'phase_supercritical_liquid';
+                case 4
+                    str = 'phase_critical_point';
+                case 5
+                    str = 'phase_gas';
+                case 6
+                    str = 'phase_two_phase';
+                case 7
+                    str = 'phase_unknown';
+                case 8
+                    str = 'phase_not_imposed';
+                otherwise
+                    str = 'phase_unknown';
+            end
+        end
+
+    end
+
 end
