@@ -107,7 +107,7 @@ if ~libisloaded(CoolProp.ALIAS)
     CoolProp.load();
 end
 
-version_exp = '6.4.3';
+version_exp = '6.6.0';
 version_got = CoolProp.get_global_param_string('version');
 assert(strcmp(version_exp, version_got))
 
