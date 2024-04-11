@@ -101,6 +101,83 @@ end
 CoolProp.unload();
 assert(~libisloaded(CoolProp.ALIAS))
 
+%% Get CoolProp version
+
+if ~libisloaded(CoolProp.ALIAS)
+    CoolProp.load();
+end
+
+version_exp = '6.4.3';
+version_got = CoolProp.get_global_param_string('version');
+assert(strcmp(version_exp, version_got))
+
+CoolProp.unload();
+
+%% Props1SI
+
+CoolProp.load();
+molmass_exp = 0.018015268;
+molmass_got = CoolProp.Props1SI('water', 'M');
+assert(abs(molmass_exp - molmass_got) < 1e-6)
+CoolProp.unload();
+
+%% PropsSI
+
+CoolProp.load();
+temp_exp = 373.124295847701;
+temp_got = CoolProp.PropsSI('T', 'P', 101325, 'Q', 0, 'water');
+assert(abs(temp_exp - temp_got) < 1e-6)
+CoolProp.unload();
+
+%% HAPropsSI
+
+if ~libisloaded(CoolProp.ALIAS)
+    CoolProp.load();
+end
+
+enthalpy_exp = 50423.45039107799;
+enthalpy_got = CoolProp.HAPropsSI('H', 'T', 298.15, 'P', 101325, 'R', 0.5);
+assert(abs(enthalpy_exp - enthalpy_got) < 1e-6)
+
+CoolProp.unload();
+
+%% Loading custom CoolProp location
+
+clear CoolProp
+path_to_lib = fullfile('C:', 'CoolProp', ...
+    {'6.4.3', '6.5.0', '6.6.0'}, 'CoolProp.dll');
+path_to_header = fullfile('C:', 'CoolProp', 'CoolPropLib.h');
+
+CoolProp.setLibPath(path_to_lib{1});
+CoolProp.setHeaderPath(path_to_header);
+CoolProp.load();
+
+version_exp = '6.4.3';
+version_got = CoolProp.get_global_param_string('version');
+assert(strcmp(version_exp, version_got))
+
+CoolProp.unload();
+
+CoolProp.setLibPath(path_to_lib{2});
+CoolProp.setHeaderPath(path_to_header);
+CoolProp.load();
+
+version_exp = '6.5.0';
+version_got = CoolProp.get_global_param_string('version');
+assert(strcmp(version_exp, version_got))
+
+CoolProp.unload();
+
+CoolProp.setLibPath(path_to_lib{3});
+CoolProp.setHeaderPath(path_to_header);
+CoolProp.load();
+
+version_exp = '6.6.0';
+version_got = CoolProp.get_global_param_string('version');
+assert(strcmp(version_exp, version_got))
+
+CoolProp.unload();
+
 %% Calling REFPROP
 
 if ispc
@@ -109,7 +186,7 @@ else
     [status, ~] = system('which REFPRP64.dll');
 end
 
-assert(status == 0, 'Could not find REFPROP on the OS search path')
+assert(status == 0, 'Could not find REFPROP on the OS search path, aborting test')
 
 CoolProp.load();
 temp_exp = 373.124295847701;

@@ -99,12 +99,35 @@ classdef CoolProp
 
         end
 
+        function outval = Props1SI(fluid, output)
+
+            outval = calllib(CoolProp.CoolProp.ALIAS, 'Props1SI', fluid, output);
+
+        end
+
         function outval = PropsSI(output, name_one, value_one, name_two,...
             value_two, fluid)
 
             outval = calllib(CoolProp.CoolProp.ALIAS, 'PropsSI', output,...
                 name_one, value_one, name_two, value_two, fluid);
 
+        end
+
+        function outval = HAPropsSI(output, name_one, value_one, ...
+            name_two, value_two, name_three, value_three)
+
+            outval = calllib(CoolProp.CoolProp.ALIAS, 'HAPropsSI', ...
+                output, name_one, value_one, name_two, value_two, ...
+                name_three, value_three);
+
+        end
+
+        function value = get_global_param_string(param)
+            BUFF_SIZE = 2000;
+            VALUE_BUFFER = char(1:BUFF_SIZE);
+            [~, ~, value] = calllib(CoolProp.CoolProp.ALIAS, ...
+                'get_global_param_string', param, ...
+                VALUE_BUFFER, BUFF_SIZE);
         end
 
     end
