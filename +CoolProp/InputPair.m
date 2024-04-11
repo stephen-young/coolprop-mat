@@ -1,6 +1,9 @@
 classdef InputPair
     % Parameter indicies based on input_pairs enum at
     % https://github.com/CoolProp/CoolProp/blob/master/include/DataStructures.h#L274
+    %
+    % Property values will be evaluated after first reference to this class and cached
+    % https://www.mathworks.com/help/matlab/matlab_oop/expressions-in-class-definitions.html
 
     properties (Constant)
 
