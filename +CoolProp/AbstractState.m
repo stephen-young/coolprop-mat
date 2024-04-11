@@ -155,10 +155,6 @@ classdef AbstractState < handle
             value = self.keyed_output(CoolProp.Parameter.irhomass_critical);
         end
 
-        function value = rhomass_reducing(self)
-            value = self.keyed_output(CoolProp.Parameter.irhomass_reducing);
-        end
-
         function value = p_critical(self)
             value = self.keyed_output(CoolProp.Parameter.iP_critical);
         end
@@ -191,10 +187,6 @@ classdef AbstractState < handle
             value = self.keyed_output(CoolProp.Parameter.iP_max);
         end
 
-        function value = dipole_moment(self)
-            value = self.keyed_output(CoolProp.Parameter.idipole_moment);
-        end
-
         % Bulk properties
         function value = T(self)
             value = self.keyed_output(CoolProp.Parameter.iT);
@@ -206,14 +198,6 @@ classdef AbstractState < handle
 
         function value = Q(self)
             value = self.keyed_output(CoolProp.Parameter.iQ);
-        end
-
-        function value = Tau(self)
-            value = self.keyed_output(CoolProp.Parameter.iTau);
-        end
-
-        function value = Delta(self)
-            value = self.keyed_output(CoolProp.Parameter.iDelta);
         end
 
         % Molar specific thermodynamic properties
